@@ -1,0 +1,35 @@
+
+
+
+.login_box{
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    top:50%;
+    left:50%;
+    margin-left: -200px;
+    margin-top: -200px;
+    background-color: rgba(211, 255, 248, 0.62);
+}
+
+.login_logo{
+    width: 100%;
+}
+
+.login_logo img{
+    width: 60%;
+}
+
+.login_logo span{
+    font-size: 20px;
+    position: relative;
+    top: 10px;
+    left: 5%;
+    color: #666;
+    font-weight: 400;
+}
+
+.login_form{
+    width: 100%;
+    padding: 30px 10px;
+}

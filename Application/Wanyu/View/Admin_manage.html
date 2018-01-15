@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{$title} 管理系统</title>
+    <include file="Public/script"/>
+</head>
+<body>
+
+<include file="Public/header"/>
+<style>
+    .sort:hover {
+        background-color: #2f91ff !important;
+    }
+
+
+</style>
+<div class="container">
+
+    <div class="row">
+        <block name="content">
+            <if condition='$usertype eq 9'>
+                <div class="row marbottom">
+
+
+                    <div class="col-sm-6   column ">
+                        <div class="btn-group btn-group-md">
+                            <button class="btn btn-primary    " type="button" onclick="goUrl('{:U('addadmin')}')"><em
+                                    class="glyphicon glyphicon-plus-sign"></em> 添加代理商
+                            </button>
+                            <button class="btn btn-success    " type="button" onclick="location.reload();">
+                                <em class="glyphicon glyphicon-refresh"></em> 刷新
+                            </button>
+                            <!-- <button class="btn btn-default  　" type="button" onclick="doConfirmBatch('{:U('deladmin', array('batchFlag' => 1))}', '确实要删除选择项吗？')"><em class="glyphicon glyphicon-remove-circle"></em> 删除</button>-->
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-6   text-left">
+
+                        <form method="post" action="{:U('manage')}" id="kform">
+                            <div class="row ">
+                                <div class="col-xs-3">
+                                    <label class="sr-only">代理级别</label>
+                                    <select class="form-control  " name="usertype">
+                                        <option value="">请选择代理级别</option>
+                                        <option value="1"
+                                        <if condition="$searusertype eq 1">selected="selected"</if>
+                                        >普通代理</option>
+                                        <option value="2"
+                                        <if condition="$searusertype eq 2">selected="selected"</if>
+                                        >银牌代理</option>
+                                        <option value="3"
+                                        <if condition="$searusertype eq 3">selected="selected"</if>
+                                        >金牌代理</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="col-xs-2">
+                                    <label class="sr-only">是否激活</label>
+                                    <select class="form-control  " name="islock">
+                                        <option value="">请选择激活情况</option>
+                                        <option value="1"
+                                        <if condition="$searislock eq 1">selected="selected"</if>
+                                        >已激活</option>
+                                        <option value="2"
+                                        <if condition="$searislock eq 2">selected="selected"</if>
+                                        >未激活</option>
+
+
+                                    </select>
+                                </div>
+
+
+                                <div class="col-xs-2">
+                                    <label class="sr-only" for="inputKeyword">工号</label>
+                                    <input type="text" class="form-control " name="seid" id="inputKeyword"
+                                           placeholder="工号" value="{$seid}">
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <label class="sr-only">身份证</label>
+                                    <input type="text" class="form-control  " name="idcard" placeholder="身份证"
+                                           value="{$idcard}">
+                                </div>
+
+                                <div class="col-xs-2">
+                                    <input type="hidden" name="search" value="1"/>
+                                    <button type="submit" class="btn btn-default  ">搜索</button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </if>
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <form action="" method="post" id="form_do" name="form_do">
+                        <div class="table-responsive">
+                            <table class="table table-hover xyh-table-bordered-out">
+                                <thead>
+                                <tr class="active">
+                                    <!--<th><input type="checkbox" id="check"></th>-->
+                                    <input type="hidden" id="issort" value="{$issort}">
+                                    <th class="sort " sort="seid"
+                                    <if condition="$sort eq 'seid' "> sorttype="{$sorttype}"
+                                        <else/>
+                                        sorttype="asc"
+                                    </if>
+                                    >工号</th>
+                                    <!--<th class="hidden-xs">上次登录时间</th>-->
+                                    <th class="hidden-xs">姓名</th>
+                                    <th class="hidden-xs sort sortregistertime" sort="registertime"
+                                    <if condition="$sort eq 'registertime' "> sorttype="{$sorttype}"
+                                        <else/>
+                                        sorttype="asc"
+                                    </if>
+                                    >注册时间
+
+                                    </th>
+                                    <th>代理类型</th>
+                                    <th>推荐人</th>
+                                    <th class="text-right">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <foreach name='user' item='v'>
+                                    <tr>
+                                        <!--<td><input type="checkbox" name="key[]" <if condition="$v['usertype'] eq 9">disabled="disabled"</if> value="{$v.id}"></td>-->
+
+                                        <td>{$v.username}</td>
+
+
+                                        <!--<td class="hidden-xs">{$v.logintime|date='Y-m-d H:i:s',###}</td>-->
+                                        <td class="hidden-xs">{$v.realname}</td>
+                                        <td class="hidden-xs">{$v.registertime|date='Y-m-d H:i:s',###}</td>
+                                        <!--<td class="visible-xs-block">{$v.logintime|date='m-d H:i',###}</td>-->
+                                        <td class="">
+                                            <if condition="$v.usertype eq 1">
+                                                普通代理
+                                                <elseif condition="$v.usertype eq 2"/>
+                                                银牌代理
+                                                <elseif condition="$v.usertype eq 3"/>
+                                                金牌代理
+                                                <elseif condition="$v.usertype eq 9"/>
+                                                公司管理员
+                                            </if>
+                                        </td>
+
+                                        <td>{$v.pseid}</td>
+                                        <td class="text-right">
+                                            <a href="{:U('Achievement/picture',array('adminid'=>$v['id']))}"
+                                               class="label label-primary" title="组织网图">网图</a>
+                                            <if condition="($v['usertype'] eq 9) OR  ($usertype neq 9) ">
+                                                <a href="{:U('Achievement/companyprofit',array('adminid'=> 1 ) )}"
+                                                   class="label label-info">业绩</a>
+                                                <elseif condition="$v['islock'] eq 1"/>
+
+                                                    <a href="{:U('Achievement/index',array('adminid'=>$v['id']))}"
+                                                       class="label label-info ">业绩</a>
+
+                                                    <else/>
+
+                                                    <span class="label label-default ">业绩</span>
+                                            </if>
+
+                                            <a href="{:U('Admin/addadmin',array('adminid'=>$v['id']))}"
+                                               class="label label-success">修改</a>
+                                            <!-- <if condition="($v['usertype'] eq 9) OR  ($usertype neq 9) ">
+                                                 <span class="label label-default">删除</span>
+                                                 <else/>
+                                                 <a href="javascript:;" onclick="toConfirm('{:U('Admin/deladmin',array('adminid'=>$v['id']))}','你确定要删除？')" class="label label-danger">删除</a>
+                                             </if>-->
+                                        </td>
+                                    </tr>
+                                </foreach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+
+
+                    <div class="wypage">
+
+                        <nav>
+                            <ul class="pagination">
+                                <li><a href="{:U('Admin/manage',array('nowpage'=> 1 ) )}"> 首页 </a></li>
+                                <if condition="$nowpage neq 1">
+                                    <li><a href="{:U('Admin/manage',array('nowpage'=> $nowpage-1 ) )}"
+                                           title="上一页">&laquo;</a></li>
+                                    <else/>
+                                    <li class="disabled"><a
+                                            href="{:U('Admin/manage',array('nowpage'=> $nowpage-1 ) )}">&laquo;</a></li>
+                                </if>
+                                <!--<li class="active"> <span >1</span></li>-->
+
+                                <for start="advoidnegative($nowpage-3) " end="advoidTranscend($nowpage+3,$pagecount+1)">
+                                    <if condition="$i eq $nowpage">
+                                        <li class="active"><span>{$i}</span></li>
+                                        <else/>
+                                        <li><a href="{:U('Admin/manage',array('nowpage'=> $i ) )}">{$i}</a></li>
+                                    </if>
+                                </for>
+
+                                <if condition="$nowpage neq $pagecount">
+                                    <li><a href="{:U('Admin/manage',array('nowpage'=> $nowpage+1 ) )}"
+                                           title="下一页">&raquo;</a></li>
+                                    <else/>
+                                    <li class="disabled"><a
+                                            href="{:U('Admin/manage',array('nowpage'=> $nowpage+1 ) )}">&raquo;</a></li>
+                                </if>
+                                <li><a href="{:U('Admin/manage',array('nowpage'=> $pagecount ) )}"> 末页 </a></li>
+
+                                <li><span> 共{$allnum}条数据，共{$pagecount}页 ,现在第 {$nowpage}页</span></li>
+                            </ul>
+
+                        </nav>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </block>
+
+    </div>
+
+</div>
+
+
+<script>
+    $(function () {
+        $('.sort').click(function (e) {
+            //排序
+            $('#issort').val(1);
+            var sort = $(this).attr('sort');//排序字段
+            var sorttype = $(this).attr('sorttype');//排序类型，升序和降序
+            var href = "{:U('manage')}";
+            href += '/issort/1/sort/' + sort + '/sorttype/' + sorttype;
+            console.log(href);
+            goUrl(href);
+        });
+
+        $('.wypage').find('a').click(function (e) {
+            //让分页有搜索的信息
+            e.preventDefault();
+            var href = $(this).attr('href');
+            var formparam = $('#kform').serialize();
+            console.log(formparam);
+            href += '/wypage/1';
+
+            /****  排序 *****/
+            var issort = $('#issort').val();
+
+            if (issort == 1) {
+                //有搜索的条件
+                var sort = "{$sort}";
+                var wypage = "{$wypage}";//用来判断是否分页过,如果为0，则上一操作不是分页，而是排序
+                var sorttype = "{$sorttype}";
+                if (wypage == 1) {
+                    //上一操作也是分页
+                    sorttype = "{$sorttype}";
+                } else {
+                    sorttype = ("{$sorttype}" == 'desc' ? 'asc' : 'desc');//翻转
+                }
+
+                href += '/issort/1/sort/' + sort + '/sorttype/' + sorttype;
+            }
+
+
+            /****搜索的条件*****/
+//               formparam = formparam.replace(/&/g,'/').replace(/=/g,'/');
+            href += '/search/1';
+//               console.log(formparam);
+            href += ('?' + formparam);
+            //alert(href);
+            goUrl(href);
+        })
+    })
+</script>
+
+<include file="Public/footer"/>
+
+</body>
+
+</html>

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$title} 管理系统 </title>
+    <include file="Public/script"/>
+</head>
+<body>
+
+
+<include file="Public/header"/>
+
+
+<div class="container">
+
+    <div class="row">
+        <block name="content">
+
+            <div class="row">
+
+                <div class="col-lg-11 col-xs-offset-1 col-xs-11  " style="margin-top: 10px;">
+                    <h4 style="text-align: center">{$title}</h4><br>
+                    <form method='post' class="form-horizontal" id="form_do" name="form_do"
+                          action="<if condition='$adminid neq null'>{:U('editadmin')}<else/>{:U('addadmin')}</if>">
+
+                        <div class="form-group">
+                            <label for="inputUsername" class="col-sm-2 control-label">
+                                <if condition="$adminid eq null ">(留空系统会自动生成编号)</if>
+                                用户编号</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="username" id="inputUsername" value="{$admin.username}"
+                                <if condition="$adminid neq null ">disabled="disabled"</if>
+                                class="form-control" placeholder="
+                                <if condition="$adminid eq null">(留空，系统会自动生成编号)
+                                    <else/>
+                                    用户编号
+                                </if>
+                                " />
+                                <if condition="$adminid neq null "><input type="hidden" name="seid"
+                                                                          value="{$admin.seid}"/></if>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="inputPassword" class="col-sm-2 control-label">
+                                <if condition="$adminid neq null ">(不修改请留空)</if>
+                                密码</label>
+                            <div class="col-sm-9">
+                                <input type="password" name="password" id="inputPassword" value="" class="form-control"
+                                <if condition='$adminid neq null'>placeholder="不修改请留空"</if>
+                                />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="qPassword" class="col-sm-2 control-label">确认密码</label>
+                            <div class="col-sm-9">
+                                <input type="password" name="qpassword" id="qPassword" value="" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone" class="col-sm-2 control-label">电话</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="phone" id="phone"
+                                       value="{$admin.phone}" class="form-control" placeholder="电话"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="realname" class="col-sm-2 control-label">身份证姓名</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="realname" id="realname"
+                                       value="{$admin.realname}" class="form-control" placeholder="身份证姓名"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="idcard" class="col-sm-2 control-label">身份证</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="idcard" id="idcard"
+                                       value="{$admin.idcard}" class="form-control" placeholder="身份证"/>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label for="creditcard" class="col-sm-2 control-label">银行卡</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="creditcard" id="creditcard"
+                                       value="{$admin.creditcard}" class="form-control" placeholder="银行卡"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="addressofcreditcard" class="col-sm-2 control-label">开卡户地</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="addressofcreditcard" id="addressofcreditcard"
+                                       value="{$admin.addressofcreditcard}" class="form-control" placeholder="开卡户地"/>
+                            </div>
+                        </div>
+                        <!--个人资料 -->
+
+                        <if condition="$adminid neq null ">
+                            <div class="form-group">
+                                <label for="registertime" class="col-sm-2 control-label">注册时间</label>
+                                <div class="col-sm-9">
+                                    <input type="text" id="registertime" disabled="disabled"
+                                           value="{$admin.registertime|date='Y-m-d h:i:s',###}"
+                                           class="form-control" placeholder="注册时间"/>
+                                </div>
+                            </div>
+                        </if>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">性别</label>
+                            <div class="col-sm-9">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="sex" value="1"
+                                        <if condition="$admin['sex'] eq 1 ">checked</if>
+                                        >
+                                        男
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="sex" value="2"
+                                        <if condition="$admin['sex'] eq 2 ">checked</if>
+                                        >
+                                        女
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="email" class="col-sm-2 control-label">邮箱</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="email" id="email"
+                                       value="{$admin.email}" class="form-control" placeholder="邮箱"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address" class="col-sm-2 control-label">地址</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="address" id="address"
+                                       value="{$admin.address}" class="form-control" placeholder="地址"/>
+                            </div>
+                        </div>
+
+                        <if condition="$admin['usertype'] neq 9 ">
+
+
+                            <if condition="$admin['islock'] neq 1 ">
+                                <!--代理还没有激活-->
+                                <div class="form-group">
+                                    <label for="" class="col-sm-2 control-label">推荐他的人</label>
+                                    <div class="col-sm-9">
+                                        <select name="masterid" class="form-control">
+                                            <option value="">请选择推荐他的人</option>
+                                            <foreach name='seids' item='v' key="k">
+                                                <option value="{$v.seid}"
+                                                <if condition="$admin['master']['seid'] eq $v['seid'] ">
+                                                    selected="selected"
+                                                </if>
+                                                >
+                                                <if condition=" $v['seid'] eq 0 "> 公司管理员
+                                                    <else/>
+                                                    {$v.seid}
+                                                </if>
+                                                </option>
+                                            </foreach>
+                                        </select>
+                                    </div>
+
+
+                                </div>
+
+
+                                <!--所属代理类型 -->
+
+                                <div class="form-group">
+                                    <label for="" class="col-sm-2 control-label">所属代理类型</label>
+                                    <div class="col-sm-9">
+                                        <select name="usertype" class="form-control">
+                                            <foreach name='usertype' item='v' key="k">
+                                                <option value="{$k}"
+                                                <if condition="$admin['usertype'] eq $k ">selected="selected"</if>
+                                                >{$v}</option>
+                                            </foreach>
+                                        </select>
+                                    </div>
+                                    <!--<input type="hidden" name="usertype" value="1"   />-->
+
+                                </div>
+                                <else/>
+                                <!--代理激活-->
+
+                                <div class="form-group">
+                                    <label for="" class="col-sm-2 control-label">推荐他的人</label>
+                                    <div class="col-sm-9">
+                                        <select name="masterid" class="form-control" disabled="disabled">
+                                            <option value="">请选择推荐他的人</option>
+                                            <foreach name='seids' item='v' key="k">
+                                                <option value="{$v.seid}"
+                                                <if condition="$admin['master']['seid'] eq $v['seid'] ">
+                                                    selected="selected"
+                                                </if>
+                                                >
+                                                <if condition=" $v['seid'] eq 0 "> 公司管理员
+                                                    <else/>
+                                                    {$v.seid}
+                                                </if>
+                                                </option>
+                                            </foreach>
+                                        </select>
+                                    </div>
+
+                                    <input type="hidden" name="masterid" value="{$admin.master.seid}"   />
+
+                                </div>
+
+
+                                <!--所属代理类型 -->
+
+                                <div class="form-group">
+                                    <label for="" class="col-sm-2 control-label">所属代理类型</label>
+                                    <div class="col-sm-9">
+                                        <select name="usertype" class="form-control" disabled="disabled">
+                                            <foreach name='usertype' item='v' key="k">
+                                                <option value="{$k}"
+                                                <if condition="$admin['usertype'] eq $k ">selected="selected"</if>
+                                                >{$v}</option>
+                                            </foreach>
+                                        </select>
+                                    </div>
+
+                                    <input type="hidden" name="usertype" value="{$admin.usertype}"   />
+                                    <input type="hidden" name="islock" value="1"   />
+
+                                </div>
+
+
+                            </if>
+
+
+                            <else/>
+                            <input type="hidden" name="usertype" value="9"/>
+                        </if>
+
+                        <!--  订单添加  -->
+                        <if condition="$adminid eq null ">
+                            <div class="form-group">
+                                <h3 align="center">订单添加</h3>
+                            </div>
+                            <div class="form-group">
+                                <label for="pid" class="col-sm-2 control-label">请选择产品</label>
+                                <div class="col-sm-9">
+                                    <select name="pid" class="form-control" id="pid">
+                                        <option value="">请选择产品</option>
+                                        <foreach name='product' item='v' key="k">
+                                            <option value="{$v.pid}" price="{$v.price}" pprice="{$v.pprice}">
+                                                {$v.pname}---{$v.price}元---pv值:{$v.pprice}元
+                                            </option>
+
+                                        </foreach>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="additionalprice" class="col-sm-2 control-label">附加价格</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="additionalprice" name="additionalprice"
+                                           value="{$v.additionalprice}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="finalprice" class="col-sm-2 control-label">总价格</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" disabled="disabled" id="finalprice"
+                                           name="finalprice" value="{$v.finalprice}" placeholder="0">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="finalpprice" class="col-sm-2 control-label">总pv值</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" disabled="disabled" id="finalpprice"
+                                           name="finalpprice" value="{$v.finalpprice}" placeholder="0">
+                                </div>
+                            </div>
+
+
+                        </if>
+
+                        <!--个人资料-->
+                        <!-- <div class="form-group">
+                             <div style="border-bottom: 1px solid #2441ff">
+
+                                 <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                         data-target="#collapseExample" aria-expanded="false"
+                                         aria-controls="collapseExample">
+                                     个人资料(点击显示)
+                                 </button>
+                             </div>
+                             <div class="collapse" id="collapseExample">
+                                 <div class="well">
+
+
+                                     <if condition="$adminid neq null ">
+                                         <div class="form-group">
+                                             <label for="registertime" class="col-sm-2 control-label">注册时间</label>
+                                             <div class="col-sm-9">
+                                                 <input type="text" id="registertime" disabled="disabled"
+                                                        value="{$admin.registertime|date='Y-m-d h:i:s',###}"
+                                                        class="form-control" placeholder="注册时间"/>
+                                             </div>
+                                         </div>
+                                     </if>
+
+
+
+                                     <div class="form-group">
+                                         <label  class="col-sm-2 control-label">性别</label>
+                                         <div class="col-sm-9">
+                                             <div class="radio-inline"  >
+                                                 <label>
+                                                     <input type="radio" name="sex"  value="1" <if condition="$admin['sex'] eq 1 ">checked</if> >
+                                                     男
+                                                 </label>
+                                             </div>
+                                             <div class="radio-inline">
+                                                 <label>
+                                                     <input type="radio" name="sex"  value="2" <if condition="$admin['sex'] eq 2 ">checked</if> >
+                                                     女
+                                                 </label>
+                                             </div>
+                                         </div>
+                                     </div>
+
+
+
+                                     <div class="form-group">
+                                         <label for="email" class="col-sm-2 control-label">邮箱</label>
+                                         <div class="col-sm-9">
+                                             <input type="text" name="email" id="email"
+                                                    value="{$admin.email}" class="form-control" placeholder="邮箱"/>
+                                         </div>
+                                     </div>
+
+                                     <div class="form-group">
+                                         <label for="address" class="col-sm-2 control-label">地址</label>
+                                         <div class="col-sm-9">
+                                             <input type="text" name="address" id="address"
+                                                    value="{$admin.address}" class="form-control" placeholder="地址"/>
+                                         </div>
+                                     </div>
+
+
+
+                                 </div>
+                             </div>
+                         </div>-->
+
+
+                        <div class="row margin-botton-large">
+                            <div class="col-sm-offset-2 col-sm-9">
+                                <if condition="$adminid">
+                                    <input type="hidden" name="adminid" value="{$adminid}" id="adminid"/>
+                                </if>
+                                <div class="btn-group">
+                                    <button type="submit" class="btn btn-primary" id="admnsubmit"><i
+                                            class="glyphicon glyphicon-saved"></i>
+                                        保存
+                                    </button>
+                                    <button type="button" onclick="goUrl('{:U('index')}')" class="btn btn-default"><i
+                                            class="glyphicon glyphicon-chevron-left"></i>
+                                        返回
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </block>
+
+    </div>
+
+</div>
+
+
+<include file="Public/footer"/>
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        var adminid = $('#adminid').val();
+
+
+        /*
+         *
+         * 检测电话和身份证是否为空
+         *
+         * */
+        function checkPersonmsg(phone, idcard,email) {
+
+            var checkFlag = 1;
+            if ($.trim(phone) === '') {
+                layer.tips('联系电话为空', '#phone', {
+                    tips: [3, '#3595CC'],
+                    time: 2000
+                });
+                checkFlag *= 0;
+            } else if ($.trim(idcard) === '') {
+                layer.tips('身份证不可为空', '#idcard', {
+                    tips: [3, '#3595CC'],
+                    time: 2000
+                });
+                checkFlag *= 0;
+
+            }else if ($.trim(email) === '') {
+                layer.tips('邮箱不可为空', '#email', {
+                    tips: [3, '#3595CC'],
+                    time: 2000
+                });
+                checkFlag *= 0;
+
+            }
+
+            return checkFlag;
+
+
+        }
+
+        function checkEqulePassword(username, password, qpassword) {
+            var checkFlag = 1;
+
+
+            if (false) {
+
+            }
+        <if condition = "$adminid neq null " >
+            else
+            if (username === '') {
+
+                layer.tips('用户编号为空', '#inputUsername', {
+                    tips: [3, '#3595CC'],
+                    time: 2000
+                });
+                checkFlag *= 0;
+
+
+            }
+        </if>
+
+        <if condition = "$admin['usertype'] neq 9 && $adminid neq null" >
+
+            else
+            if (!isInteger(username)) {
+                layer.tips('用户编号必须为数字', '#inputUsername', {
+                    tips: [3, '#3595CC'],
+                    time: 2000
+                });
+                checkFlag *= 0;
+            }
+        </if>
+            else if (password === '') {
+                if (typeof(adminid) == "undefined") {
+
+                    layer.tips('密码为空', '#inputPassword', {
+                        tips: [3, '#3595CC'],
+                        time: 2000
+                    });
+                    checkFlag *= 0;
+                }
+
+            }
+            else if (qpassword !== password) {
+                if (typeof(adminid) == "undefined" || password !== '') {
+                    layer.tips('确认密码和密码不相同', '#qPassword', {
+                        tips: [3, '#3595CC'],
+                        time: 2000
+                    });
+                    checkFlag *= 0;
+                }
+            }
+            ;
+
+
+            return checkFlag;
+        }
+
+        var checkFlag = 0;
+
+        $('#form_do').find('input').blur(function () {
+
+            var username = $('#inputUsername').val();
+            var password = $('#inputPassword').val();
+            var qpassword = $('#qPassword').val();
+            var phone = $('#phone').val();
+            var idcard = $('#idcard').val();
+            var email = $('#email').val();
+            checkFlag = checkEqulePassword(username, password, qpassword);
+            checkFlag = checkFlag * checkPersonmsg(phone, idcard,email);
+//            console.log(checkFlag);
+
+        });
+
+        <if condition = "$adminid eq null " >
+                $('#additionalprice').change(function () {
+                    caculateprice();
+                });
+
+        $('#pid').change(function () {
+            caculateprice();
+        });
+
+        </if>
+
+        $("#admnsubmit").click(function (e) {
+            var username = $('#inputUsername').val();
+            var password = $('#inputPassword').val();
+            var qpassword = $('#qPassword').val();
+            var phone = $('#phone').val();
+            var idcard = $('#idcard').val();
+            var email = $('#email').val();
+            checkFlag = checkEqulePassword(username, password, qpassword);
+            checkFlag = checkFlag * checkPersonmsg(phone, idcard,email);
+            console.log(checkFlag);
+            if (checkFlag === 0) {
+                e.preventDefault();
+            }
+            <if condition = "$adminid eq null " >
+                if ($('#sadminid').val() == '') {
+                    e.preventDefault();
+                    layer.msg('请选择代理');
+                } else if ($('#pid').val() == '') {
+                    e.preventDefault();
+                    layer.msg('请选择产品');
+                } else if ($('#additionalprice').val() != '' && isNaN($('#additionalprice').val())) {
+                    e.preventDefault();
+                    layer.msg('附加价格！');
+                }
+            </if>
+
+        });
+
+
+        function caculateprice() {
+            var price = isNaN(parseFloat($('#pid').find(":selected").attr('price'))) ? 0 : parseFloat($('#pid').find(":selected").attr('price'));
+//            var pv = isNaN(parseFloat($('#pid').find(":selected").attr('pv')))  ? 0 : parseFloat($('#pid').find(":selected").attr('pv'));
+            var pprice = isNaN(parseFloat($('#pid').find(":selected").attr('pprice'))) ? 0 : parseFloat($('#pid').find(":selected").attr('pprice'));
+            var additionalprice = $('#additionalprice').val() == '' ? 0 : parseFloat($('#additionalprice').val());
+            $('#finalprice').val(price + additionalprice);
+            $('#finalpprice').val(pprice);
+
+
+        }
+
+
+    })
+</script>
+</body>
+</html>

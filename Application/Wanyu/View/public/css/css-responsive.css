@@ -1,0 +1,120 @@
+/* CSS Document */
+
+@media  screen and (max-width:1366px){
+	.login-body{ background-size:1866px}
+	.login-top{ width:900px; margin:0 auto; overflow:hidden; padding:5px 0; }
+	.login-top .logo{ float:left; margin-left:30px;}
+	.login-top .logo img{ width:60px; }
+	.login-top .txt{ color:#3697ED; font-size:16px; float:right; text-align:right; margin-top:10px; margin-right:15px; line-height:110%;text-transform:uppercase}
+	.login-block{background:url(../images/login_line_bg.png) repeat-x 0 bottom; height:6px;}
+	.login-holder{ height:400px; overflow:hidden;}
+	.comeway { margin-bottom:10px;}
+	.comeway img{ width:320px;}
+	#login{ background-color:rgba(255,255,255,0.8); border-radius:20px; width:274px; padding:60px 20px; margin:10px auto 0 auto; height:320px; position:relative;-webkit-box-shadow:0 0 6px rgba(0, 0, 0, .4);
+	-moz-box-shadow:0 0 6px rgba(0, 0, 0, .4);
+	box-shadow:0 0 6px rgba(0, 0, 0, .4); display:none;}
+	#login h3{ background:#5395D2 ; height:33px; color:#fff; line-height:33px; text-indent:3.2em; width:293px; position:absolute; top:20px; left:-10px; margin:0; font-size:18px; font-weight:normal;-webkit-box-shadow:0 0 6px rgba(0, 0, 0, .4);
+	-moz-box-shadow:0 0 6px rgba(0, 0, 0, .4);  
+	box-shadow:0 0 6px rgba(0, 0, 0, .4); }
+	
+	.banner{ width:820px; margin:18px auto 0px auto; height:120px; text-align:center}
+	.banner img{ width:28%; margin:0 0.2%;}
+	.login-foot{ background:url(../images/login_line.png) no-repeat center; height:30px; text-align:center; line-height:30px;  color:#fff;}
+	.forgetbox{
+		width: 60%;
+		margin: 0 auto;
+		background-color: #ffffff;
+		padding: 5%;
+		margin-top: 20px;
+		border-radius: 5%;
+		font-size: 12px;
+	}
+}
+
+ @media (max-width: 1199px) {
+	.navbar ul > li{ width:16%; }
+}
+/*max-width 要从大到小*/
+@media (max-width: 767px) {
+	.login-body{ background-size:1300px 740px;}
+	.login-top{ width:100%;}
+	.login-top .logo{ margin-left:10px;}
+	.login-top .logo img{ width:70px;}
+	.login-top .txt{ font-size:20px; margin-top:15px;}
+	.login-block{ height:4px; min-width:100%;}
+	.go-opera{ width:152px; margin:0 auto; min-width:152px;}
+	.comeway{ margin-bottom:10px;}
+	.banner{ width:100%; height:70px;}
+	
+	.top{ height:60px; background-size:100%;}
+	.top section{ height:60px; background-size:180% 60px;}
+	#header{ border-bottom:1px solid #ccc;}
+	.navbar{ background:none; margin-top:-60px; margin-bottom:0}
+	.navbar-collapse{ background:#3697ED;}
+	.navbar-toggle{ border-color:#D5D5D5;}
+	.navbar-toggle .icon-bar{ background:#666;}
+	.navbar-toggle{ float:left; margin-top:-6px; margin-left:5px; margin-bottom:5px;}
+	.navbar-header{ margin-top:-10px;}
+	.navbar-nav{ margin:0;}
+	.navbar ul li{ width:100%; border-bottom:1px solid #9AC595;}
+	.navbar ul li:last-child{ border:0;}
+	.navbar ul li a{ font-size:14px; line-height:1.5em; text-align:left; margin:0; padding:8 0;}
+	.navbar ul li a:hover{ background:none;}
+	.nav > li > a:hover, .nav > li > a:focus{ background:#3697ED}
+	
+	.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{ padding:8px 4px}
+	
+	.table-responsive{ border:0;}
+	.table-responsive > thead{ display:none;}
+	.table-responsive > tbody > tr{ display:block; background:#FBFBFB; margin-bottom:15px;}
+	.table-responsive > tbody > tr:hover{ background:#EAEAEA;}
+	.table-responsive > tbody > tr > td{ display:block; text-align:left; font-size:12px}
+	.table-responsive > tbody > tr td:before{ content:attr(data-title);display:inline-block;min-width:60px;margin-right:5px;font-weight:bold; text-align:right;}
+	
+	.title{ text-align:center; font-weight:bold; font-size:22px; line-height:1em;}
+	
+	.show-usertype{ padding:0px;}
+	.partner ul{ margin-top:8px;}
+	.partner ul li{ width:100%; margin:0; border:0; border-bottom:1px dashed #ccc;}
+	.partner ul li div{ margin:5px 10px; font-size:12px}
+	.partner ul li div label{ display:inline-block; width:70px; text-align:right;}
+	
+	.enter-pass{ padding:20px 10px}
+	.enter-pass .en-password{ margin-left:0px;}
+	.enter-pass input[type=password]{ width:50%;}
+	
+	.myprofile ul{ width:100%;}
+	.myprofile ul li{ display:block; width:100%; border:0; border-bottom:1px dashed #ccc; margin:0;}
+	.myprofile ul li div{ margin:5px 10px; font-size:12px}
+	.myprofile ul li div label{ display:inline-block; width:70px; text-align:right;}
+	
+	/*个人资料*/
+	.edit-profile ul{ width:100%;}
+	.edit-profile ul li{ width:100%; border:0; border-bottom:0px solid #D5D5D5; background:none;}
+	.edit-profile ul li div{ margin:0;}
+	.edit-profile ul li div label{ width:100%; text-align:left;}
+	.edit-profile ul li div input[type=text]{ width:100%; border:1px solid #D5D5D5; padding:3px; height:auto; min-width:100%;}
+	.edit-profile ul li div select{ width:100%; border:1px solid #D5D5D5; padding:6px; height:auto; min-width:100%;}
+	.footer{ font-size:14px;}
+	
+	.edit-partner{ margin:0;}
+	.edit-partner ul li{ width:100%; border:0; border-bottom:0px solid #D5D5D5; background:none; margin:0; height:auto;}
+	.edit-partner ul li div label{ width:100%;}
+	.edit-partner ul li div input[type=text]{ width:100%; border:1px solid #D5D5D5; padding:3px; height:auto;}
+	.edit-partner ul li div select{ width:100%; border:1px solid #D5D5D5; padding:6px; height:auto; min-width:100%;}
+	
+	.text-c input[type=text],.text-c select{ display:block; width:100%;}
+	.text-c select{ margin:10px 0;}
+	.btn-search{ width:100%;}
+	
+	.join-in img{ width:80%;}
+	.forgetbox{
+		width: 90%;
+		margin: 0 auto;
+		background-color: #ffffff;
+		padding: 5%;
+		margin-top: 20px;
+		border-radius: 5%;
+		font-size: 12px;
+	}
+}

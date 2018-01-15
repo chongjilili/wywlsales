@@ -1,0 +1,288 @@
+html , body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+ul,li{
+    margin: 0;
+    padding: 0;
+}
+
+.clear{
+    clear: both;
+}
+
+/*头部 header 的样式*/
+.header{
+    background-color: rgba(211, 255, 248, 0.62);
+    width: 100%;
+    height:100%;
+}
+.header_logo{
+    float: left;
+    height: 100%;
+}
+
+.header_logo img{
+    height: 100%;
+}
+
+.header_right{
+    float: right;
+    height: 100%;
+    width: 50%;
+    /*background-color: rgba(255, 145, 71, 0.62);*/
+
+}
+.header_msg {
+    width: 100%;
+    height: 30%;
+    text-align: right;
+}
+.header_msg .s1,.header_msg .s2{
+   font-size: large;
+    padding: 5px;
+}
+
+.header_msg .s2 a{
+    text-decoration: none;
+    color: #333;
+}
+
+.header_msg .s2 a:hover{
+    color: #ff1a60;
+}
+
+.header_menu{
+    width: 100%;
+    height: 70%;
+    position: relative;
+    clear: both;
+
+}
+.header_menu ul{
+    width: 85%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    clear: both;
+}
+
+.header_menu ul li{
+    float: left;
+    width: 16.6%;
+    list-style: none;
+}
+
+.header_menu ul li a{
+    text-decoration: none;
+}
+
+/**
+* left start
+*/
+
+.wyleft{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 20px 10px;
+}
+
+
+/*main start*/
+.wymain{
+    margin: 0;
+    padding: 10px;
+}
+
+.wymain .wymain_title{
+    padding: 0px;
+    color: #2f91ff;
+    font-style: normal;
+
+}
+
+
+/*产品管理页css start*/
+.proadd{
+    background-color: #D9EDF7;
+    padding-left: 5%;
+    height: 50px;
+    line-height: 50px;
+}
+
+.topfrom{
+    float: left;
+
+}
+
+@media (max-width: 767px) {
+    .tf1 {
+        width: 100%;
+    }
+
+    .tf2 {
+        width: 100%;
+    }
+}
+
+@media (min-width: 767px) {
+    .tf1 {
+        width: 70%;
+    }
+
+    .tf2 {
+        width: 30%;
+    }
+}
+
+.prolist{
+    width: 100%;
+    /*border: 1px solid #fff38f;*/
+    margin-top: 30px;
+    height: auto;
+}
+
+.prolist td{
+    text-align: center;
+}
+
+.wypage {
+    width: 100%;
+    text-align: center;
+}
+
+.pbox{
+    width: 50%;
+    margin: 0 auto;
+}
+/*添加套餐*/
+.spebox{
+    width:60%;
+    margin: 5% auto;
+
+}
+
+/*添加订单*/
+
+
+.orderbox{
+    width:60%;
+    margin: 0 auto;
+}
+
+.quyu select{
+    width: 30%;
+    float: left;
+    margin-right: 3%;
+}
+
+/*订单列表页*/
+
+.of{
+    margin-right: 5%;
+}
+
+/* 订单编辑页 */
+
+.odeditbox{
+    width: 90%;
+    margin: 0 auto;
+}
+#odedittb tr,#odedittb td{
+    height:50px;
+    text-align: center;
+    line-height: 30px;
+}
+.odetil{
+    width: 8%;
+
+}
+
+.odedtl{
+    width: 42%;
+}
+
+.odentil{
+    width: 16%;
+
+}
+
+.odendtl{
+    width: 34%;
+}
+
+.odedntb{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+.odedntb tr{
+    margin: 0;
+    padding: 0;
+}
+
+/*管理者相关的页面*/
+
+.admin-form-wrap{
+    width:60%;
+    margin: 0 auto;
+}
+
+
+/*权限管理节点页*/
+
+.column{
+    margin-bottom: 7px;
+}
+
+
+/*系统用户组列表*/
+
+.xyh-table-bordered-out {
+    border: 1px solid #cccccc;
+}
+
+.xyh-page {
+    display: inline-block;
+    padding-left: 0;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+.xyh-page a:last-child, .xyh-page span:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.xyh-page a:first-child, .xyh-page span:first-child {
+    margin-left: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.xyh-page a, .xyh-page span {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+
+/*权限设置页*/
+.panel-body label{
+    margin-bottom: 10px;
+}
+.accessapp{
+    margin-top: 10px;
+}
+

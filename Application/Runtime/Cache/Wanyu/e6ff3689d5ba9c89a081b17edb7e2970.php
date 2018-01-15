@@ -1,0 +1,85 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面 </title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0;">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="mobileoptimized" content="0">
+    <link href="/wywlsale/Public/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/wywlsale/Application/Wanyu/View/public/css/login.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/wywlsale/Public/jquery/jquery-2.1.min.js"></script>
+    <script type="text/javascript" src="/wywlsale/Public/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/wywlsale/Public/layer/layer.js"></script>
+    <script type="text/javascript" src="/wywlsale/Application/Wanyu/View/public/js/login.js"></script>
+    <link rel="stylesheet" type="text/css" href="/wywlsale/Application/Wanyu/View/public/css/css.css">
+    <link rel="stylesheet" type="text/css" href="/wywlsale/Application/Wanyu/View/public/css/css-responsive.css">
+    <link rel="stylesheet" type="text/css" href="/wywlsale/Application/Wanyu/View/public/css/iconfont.css">
+   <style>
+       body,html{
+           width:100%;
+           height:100%;
+           overflow: hidden;
+       }
+   </style>
+</head>
+<body >
+
+
+
+
+      <body class="login-body">
+      <div class="login-top">
+          <!--<div class="logo"><img src="/wywlsale/Application/Wanyu/View/public/images/logo.png" width="167"></div>-->
+          <!--<div class="txt"><br>-->
+              <!--<p class="hidden-xs">You must be a Network member to be able to login!</p></div>-->
+      </div>
+      <div class="login-block"></div>
+
+
+      <div class="login-holder"  >
+          <div id="login" style="display: block;">
+              <h3  >会员登录</h3>
+              <input type="hidden" id="TenantId" name="TenantId" value="">
+              <form method="post" action="<?php echo U('Login/login');?>" id="wyform">
+
+                  <div>
+                      <input type="text"  value="" id="username" name="username" placeholder="用户名" class="form-control">
+                  </div>
+                  <div>
+                      <input type="password" id="password" name="password" placeholder="密   码" maxlength="50"
+                             class="form-control">
+                  </div>
+                  <div class="clearfix">
+                      <input type="text" class="form-control code" name="code" id="code" maxlength="50"
+                             placeholder="验证码">
+                      <img src="<?php echo U('Login/verify',array('id' => 'a_login_1'));?>" data-url="<?php echo U('Login/verify',array('id' => 'a_login_1'));?>" align="absmiddle" id="vcode"  height="40px" class="vcode verifyImage"></div>
+                  <button type="submit" class="btn btn-primary signin" name="submit" value="Login">登录</button>
+                  <input name="" type="reset" class="btn btn-primary cancel" value="重置" style="margin-left:5px;">
+              </form>
+              <a href="<?php echo U('Login/forget');?>" class="login-forget"> 忘记密码？ </a>
+
+
+          </div>
+      </div>
+
+
+
+
+      </body>
+
+
+        <script type="application/javascript">
+            $(function () {
+                var height = $(window).height();
+                var lgboxheight = $('.login-holder').height();
+
+                var margintop = ((height )/2- lgboxheight/2);
+                $('.login-holder').animate({
+                    'margin-top':margintop+'px',
+                },3000);
+            })
+        </script>
+
+</body>
+</html>

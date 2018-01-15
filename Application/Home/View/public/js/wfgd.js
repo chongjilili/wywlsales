@@ -1,0 +1,3 @@
+ 
+wfFocus.extend({wffahuo:function(par,F){var box=F.$(par.id),wffhlist=F.$c('wffhlist',box),n=F.$$_('li',wffhlist).length;eval(F.switchMF(function(){var last=F.$$_('li',wffhlist)[n-1],lastH=last.offsetHeight;F.slide(wffhlist,{marginTop:lastH},800,'easeOut',function(){wffhlist.insertBefore(last,wffhlist.firstChild);F.setOpa(last,0);wffhlist.style.marginTop=0+'px';F.fadeIn(last);});}));}});
+////////////////////////////   ////////////////////////////

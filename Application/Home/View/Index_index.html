@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">.wffahuo-wffahuo *{margin:0;padding:0;border:0;list-style:none;}.wffahuo-wffahuo{position:relative;width:undefinedpx;height:undefinedpx;overflow:hidden;font:12px/1.5 Verdana,Geneva,sans-serif;text-align:left;background:#fff;}.wffahuo-wffahuo .loading{position:absolute;z-index:9999;width:100%;height:100%;color:#666;text-align:center;padding-top:60px;background:#fff url(http://nethd.zhongsou.com/wtimg/i_41956/28236-loading.gif) center 80px no-repeat;}.wffahuo-wffahuo .pic{position:relative;width:undefinedpx;height:200px;overflow:hidden;}.wffahuo-wffahuo .txt li,.wffahuo-wffahuo .txt li span,.wffahuo-wffahuo .txt-bg{width:undefinedpx;height:defaultpx!important;line-height:defaultpx!important;overflow:hidden;}.wffahuo-wffahuo .txt li p a{display:inline;}</style>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <title>在线订购 - 系统测试产品</title>
+
+
+    <script type="text/javascript" src="__PUBLIC__/js/wfdq.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/wffh.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/wfgd.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/wfwin.js"></script>
+    <script type="text/javascript" src="__P__/jquery/jquery-2.1.min.js"></script>
+    <script type="text/javascript">wfFocus.set({id:'wffahuo',pattern:'wffahuo',time:3});</script>
+    <script type="text/javascript">
+        function Malert(content) {
+            $("#_alert_content").text(content);
+            $("#_alert_bg").show();
+            $("#_alert_content").show();
+        }
+        $("document").ready(function () {
+            $("#_alert_bg").click(function () {
+                $("#_alert_bg").hide();
+                $("#_alert_content").hide();
+            });
+            $(".sku_ul a").click(function () {
+                var o = $(this);
+                if (!o.hasClass("sku_cur")) {
+                    $(".sku_cur").removeClass("sku_cur");
+                    o.addClass("sku_cur");
+                    $("#item_num").val(1);
+                    $("#wfpricetemp").val(o.attr("data-price"));
+                    $("#wfprice").val(o.attr("data-price"));
+                    $("#showprice").html(o.attr("data-price"));
+                    $("#wfproduct").val(o.attr("data-sku"));
+                }
+            });
+            $(".sku_ul_na a").click(function () {
+                var o = $(this);
+                if (!o.hasClass("skuna_cur")) {
+                    $(".skuna_cur").removeClass("skuna_cur");
+                    o.addClass("skuna_cur");
+                    $("#wfproductb").val(o.attr("data-xh"));
+                }
+            });
+            $(".sku_ul_nb a").click(function () {
+                var o = $(this);
+                if (!o.hasClass("skunb_cur")) {
+                    $(".skunb_cur").removeClass("skunb_cur");
+                    o.addClass("skunb_cur");
+                    $("#wfproductc").val(o.attr("data-yc"));
+                }
+            });
+            $(".sku_ul_nc a").click(function () {
+                var o = $(this);
+                if (!o.hasClass("skunc_cur")) {
+                    $(".skunc_cur").removeClass("skunc_cur");
+                    o.addClass("skunc_cur");
+                    $("#wfpay").val(o.attr("data-pay"));
+                }
+            });
+        });
+        function numAdd(){
+            var num_add = parseInt($("#item_num").val())+1;
+            if($("#item_num").val()==""){
+                num_add = 1;
+            }
+            $("#item_num").val(num_add);
+            var total = parseFloat($("#wfpricetemp").val())*parseInt($("#item_num").val());
+            $("#showprice").html(total.toFixed(2));
+            $("#wfprice").val(total.toFixed(2));
+        }
+        function numDec(){
+            var num_dec = parseInt($("#item_num").val())-1;
+            if(num_dec<1){
+                alert("数量不能小于1件！");
+            }else{
+                $("#item_num").val(num_dec);
+                var total = parseFloat($("#wfpricetemp").val())*parseInt($("#item_num").val());
+                $("#showprice").html(total.toFixed(2));
+                $("#wfprice").val(total.toFixed(2));
+            }
+        }
+        function wftgp2(zk){
+            $("#wfform").attr("target", "_parent");
+            try{var wfprice=$("#wfprice").val()*zk;$("#showprice").html(wfprice.toFixed(2));}catch(ex){}
+        }
+        function wftgb2(zk){
+            $("#wfform").attr("target", "_blank");
+            try{var wfprice=$("#wfprice").val()*zk;$("#showprice").html(wfprice.toFixed(2));}catch(ex){}
+        }
+    </script>
+    <link href="__PUBLIC__/style/wfwebap1style.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        body{background:#FFFFFF;}
+        #wforder{width:100%;max-width:100%;}
+        .wfwarp{border:5px solid #A98B44;}
+        .wftitle span{background-color:#A98B44;}
+        .wfsubbox input{background:#FF5000;}
+        .wfsubbox input:hover{background:#FF7333;}
+    </style>
+    <link href="__PUBLIC__/style/wfrespond.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="__PUBLIC__/js/respond.js"></script>
+</head>
+<body>
+<div id="wforder">
+    <div class="wfwarp">
+        <form id="wfform" name="wfform" action="{:U('Order/addorder')}" method="post" onsubmit=""  >
+
+
+            <input type="hidden" name="pname" id="wfproname" value="系统测试产品">
+            <input type="hidden" id="wfproduct" name="smid" value="">
+            <input type="hidden" id="wfpricetemp" name="order_amount" value="580">
+            <input type="hidden" id="wfprice" name="order_amount" value="11020.00">
+            <input type="hidden" id="wfpay" name="pwid" value="2">
+            <input type="hidden" name="pid" value="10">
+
+
+            <div class="wftitle"><span>在线快速订购</span></div>
+            <div class="wfbdbox">
+                <label class="wfbdxx"><em>*</em>选择产品</label>
+                <div class="wfdxbox">
+                    <ul class="sku_ul">
+                        <li><a href="javascript:void(0);" class="" data-price="385" data-sku="13">恭喜发财 2盒 385元</a></li>
+                        <li><a href="javascript:void(0);" class="sku_cur" data-price="580" data-sku="14">吉祥如意 4盒 580元</a></li>
+                        <li><a href="javascript:void(0);" class="" data-price="785" data-sku="15">年年有余 6盒 785元</a></li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="wfbdbox">
+                <label class="wfbdxx"><em>*</em>数量</label>
+                <div class="wftextmun">
+                    <a onclick="numDec()" title="减1" class="setmun jian"></a>
+                    <input type="text" id="item_num" name="pnum" value="1">
+                    <a onclick="numAdd()" title="加1" class="setmun jia"></a>
+                </div>
+            </div>
+
+            <div class="wfbdbox">
+                <label class="wfbdxx"><em>*</em>价格</label>
+                <div class="wftextmun">
+                    <em class="wfrmb">¥</em><em id="showprice">11020.00</em>
+                </div>
+            </div>
+
+
+            <div class="wfbdbox">
+                <label class="wfbdxx"><em>*</em>姓名</label>
+                <div class="wftextbox">
+                    <input type="text" name="consignee">
+                </div>
+            </div>
+            <div class="wfbdbox">
+                <label class="wfbdxx"><em>*</em>手机号码</label>
+                <div class="wftextbox">
+                    <input type="text" name="mobile" id="mobile">
+                </div>
+            </div>
+            <div class="wfbdbox">
+                <label class="wfbdxx"><em>*</em>所在地区</label>
+                <div class="wfxlbox">
+                    <select id="wfprovince" name="province" class="wfdqxl">
+                    </select>
+                    <select id="wfcity" name="city" class="wfdqxl"><option value="城市">城市</option>
+                    </select>
+                    <select id="wfarea" name="area" class="wfdqxl nomar"><option value="区县">区县</option></select>
+                </div>
+            </div>
+            <div class="wfbdbox">
+                <label class="wfbdxx"><em>*</em>详细地址</label>
+                <div class="wftextbox">
+                    <input type="text" name="address">
+                </div>
+            </div>
+            <div class="wfbdbox">
+                <label class="wfbdxx"><em>*</em>付款方式</label>
+                <div class="wfdxbox">
+                    <ul class="sku_ul_nc">
+                        <li><a href="javascript:void(0);" onclick="wftgp2(1);" class="skunc_cur" data-pay="1">货到付款</a></li>
+                        <li><a href="javascript:void(0);" onclick="wftgb2(0.85)" class="" data-pay="2">支付宝付款<font class="red">（8.5折优惠）</font></a></li>
+                        <li><a href="javascript:void(0);" onclick="wftgb2(0.9)" class="" data-pay="3">微信付款<font class="red">（9折优惠）</font></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="showbank" style="display:none;">
+                <input type="radio" checked="checked" name="wfpaybank" id="yh1" value="ICBCB2C" class="dxk"><label for="yh1"> <img src="__PUBLIC__/images/gsyh.gif" disabled=""></label>&nbsp;&nbsp;
+                <input type="radio" name="wfpaybank" id="yh2" value="ABCBTB" class="dxk"><label for="yh2"> <img src="__PUBLIC__/images/lyyh.gif" disabled=""></label>&nbsp;&nbsp;
+                <input type="radio" name="wfpaybank" id="yh3" value="BOCBTB" class="dxk"><label for="yh3"> <img src="__PUBLIC__/images/zgyh.gif" disabled=""></label>
+                <div style="height:8px;"></div>
+                <input type="radio" name="wfpaybank" id="yh4" value="CCBBTB" class="dxk"><label for="yh4"> <img src="__PUBLIC__/images/jsyh.gif" disabled=""></label>&nbsp;&nbsp;
+                <input type="radio" name="wfpaybank" id="yh5" value="CMB" class="dxk"><label for="yh5"> <img src="__PUBLIC__/images/zsyh.gif" disabled=""></label>&nbsp;&nbsp;
+                <input type="radio" name="wfpaybank" id="yh6" value="POSTGC" class="dxk"><label for="yh6"> <img src="__PUBLIC__/images/yzyh.gif" disabled=""></label>
+                <div style="height:8px;"></div>
+                <input type="radio" name="wfpaybank" id="yh7" value="CIB" class="dxk"><label for="yh7"> <img src="__PUBLIC__/images/xyyh.gif" disabled=""></label>&nbsp;&nbsp;
+                <input type="radio" name="wfpaybank" id="yh8" value="GDB" class="dxk"><label for="yh8"> <img src="__PUBLIC__/images/gfyh.gif" disabled=""></label>&nbsp;&nbsp;
+                <input type="radio" name="wfpaybank" id="yh9" value="CITIC" class="dxk"><label for="yh9"> <img src="__PUBLIC__/images/zxyh.gif" disabled=""></label>
+                <div style="height:8px;"></div>
+                <input type="radio" name="wfpaybank" id="yh10" value="COMM-DEBIT" class="dxk"><label for="yh10"> <img src="__PUBLIC__/images/jtyh.gif" disabled=""></label>&nbsp;&nbsp;
+                <input type="radio" name="wfpaybank" id="yh11" value="SPDBB2B" class="dxk"><label for="yh11"> <img src="__PUBLIC__/images/pfyh.gif" disabled=""></label>&nbsp;&nbsp;
+                <input type="radio" name="wfpaybank" id="yh12" value="BJBANK" class="dxk"><label for="yh12"> <img src="__PUBLIC__/images/bjyh.gif" disabled=""></label>
+                <div style="height:8px;"></div>
+                <input type="radio" name="wfpaybank" id="yh13" value="SPABANK" class="dxk"><label for="yh13"> <img src="__PUBLIC__/images/payh.gif" disabled=""></label>&nbsp;&nbsp;
+                <input type="radio" name="wfpaybank" id="yh14" value="CEB-DEBIT" class="dxk"><label for="yh14"> <img src="__PUBLIC__/images/gdyh.gif" disabled=""></label>&nbsp;&nbsp;
+                <input type="radio" name="wfpaybank" id="yh15" value="CMBC" class="dxk"><label for="yh15"> <img src="__PUBLIC__/images/msyh.gif" disabled=""></label>
+                <div style="height:15px;"></div>
+            </div>
+            <div class="wfbdbox">
+                <label class="wfbdxx">留言</label>
+                <div class="wftextarea">
+                    <textarea name="postscript">请尽快安排发货，送货之前手机联系，谢谢！</textarea>
+                </div>
+            </div>
+            <div class="wfsubbox">
+                <input type="submit" name="submit" value="立即提交订单">
+            </div>
+        </form>
+        <div style="clear:both;"></div>
+    </div>
+</div>
+<div class="wftitle"><span>近期发货通知</span></div>
+<div class="wffahuo_wrap"><div id="wffahuo" class="wffahuo wffahuo wffahuo-wffahuo">
+    <ul class="wffhlist" style="margin-top: 0px;"><li style="opacity: 1;"><span>2017-02-03</span><span>吉林的胡**</span><span>［185****7081］</span><span>您订购的
+年年有余 6盒 785元 已发货！</span></li><li style="opacity: 1;"><span>2017-02-03</span><span>广西的王**</span><span>［187****3598］</span><span>您订购的
+年年有余 6盒 785元 已发货！</span></li><li style="opacity: 1;"><span>2017-02-01</span><span>陕西的吴**</span><span>［136****6897］</span><span>您订购的
+年年有余 6盒 785元 已发货！</span></li><li style="opacity: 1;"><span>2017-02-02</span><span>新疆的周**</span><span>［183****1057］</span><span>您订购的 恭喜发财 2盒 385元 已发货！</span></li><li style="opacity: 1;"><span>2017-02-02</span><span>宁夏的卢**</span><span>［151****1192］</span><span>您订购的
+年年有余 6盒 785元 已发货！</span></li><li style="opacity: 1;"><span>2017-02-03</span><span>河南的谢**</span><span>［135****2998］</span><span>您订购的
+年年有余 6盒 785元 已发货！</span></li><li style="opacity: 1;"><span>2017-02-01</span><span>天津的许**</span><span>［139****8742］</span><span>您订购的 恭喜发财 2盒 385元 已发货！</span></li><li style="opacity: 1;"><span>2017-02-03</span><span>西藏的萧**</span><span>［187****5851］</span><span>您订购的
+年年有余 6盒 785元 已发货！</span></li><li style="opacity: 1;"><span>2017-02-01</span><span>山西的蒋**</span><span>［152****6161］</span><span>您订购的
+吉祥如意 4盒 580元 已发货！</span></li><li style="opacity: 1;"><span>2017-02-01</span><span>四川的郑**</span><span>［151****9501］</span><span>您订购的 恭喜发财 2盒 385元 已发货！</span></li><li style="opacity: 1;"><span>2017-02-02</span><span>内蒙古的罗**</span><span>［159****8023］</span><span>您订购的
+年年有余 6盒 785元 已发货！</span></li><li style="opacity: 1;"><span>2017-02-03</span><span>北京的徐**</span><span>［183****4346］</span><span>您订购的
+年年有余 6盒 785元 已发货！</span></li><li style="opacity: 1;"><span>2017-02-03</span><span>福建的曾*</span><span>［184****5748］</span><span>您订购的
+年年有余 6盒 785元 已发货！</span></li><li style="opacity: 1;"><span>2017-02-02</span><span>安徽的阎**</span><span>［155****8233］</span><span>您订购的 恭喜发财 2盒 385元 已发货！</span></li><li style="opacity: 1;"><span>2017-02-01</span><span>四川的宋**</span><span>［130****9012］</span><span>您订购的
+吉祥如意 4盒 580元 已发货！</span></li><li style="opacity: 1;"><span>2017-02-01</span><span>广西的何**</span><span>［177****7417］</span><span>您订购的
+吉祥如意 4盒 580元 已发货！</span></li><li style="opacity: 1;"><span>2017-02-02</span><span>甘肃的于**</span><span>［150****3064］</span><span>您订购的
+吉祥如意 4盒 580元 已发货！</span></li><li style="opacity: 1;"><span>2017-02-02</span><span>宁夏的李**</span><span>［133****2690］</span><span>您订购的
+吉祥如意 4盒 580元 已发货！</span></li><li style="opacity: 1;"><span>2017-02-01</span><span>山西的朱**</span><span>［184****3756］</span><span>您订购的
+吉祥如意 4盒 580元 已发货！</span></li><li style="opacity: 1;"><span>2017-02-03</span><span>黑龙江的黄**</span><span>［131****4106］</span><span>您订购的
+年年有余 6盒 785元 已发货！</span></li><li style="opacity: 1;"><span>2017-02-02</span><span>甘肃的黄**</span><span>［159****1684］</span><span>您订购的
+吉祥如意 4盒 580元 已发货！</span></li>
+    </ul>
+</div></div>
+<div style="height:15px;"></div>
+<script type="text/javascript" src="__PUBLIC__/js/wfbd.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+
+    })
+</script>

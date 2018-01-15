@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{$title} 管理系统</title>
+    <include file="Public/script" />
+</head>
+</head>
+<body>
+
+<include file="Public/header" />
+
+<div class="container">
+    <center><br>
+        <h1 style="color: #2D93CA">订单列表</h1><br></center>
+    <div class="row">
+
+
+            <div class="row marbottom">
+
+                <div class="col-sm-12 ">
+
+                    <form   method="post" action="{:U('orderlist')}" id="osform">
+                        <div class="row">
+                            <label class="sr-only"  >订单号</label>
+                            <div class="col-xs-2">
+                                <input type="text" class="form-control  " name="orderid"   placeholder="订单号" value="{$where.orderid}">
+                            </div>
+
+                            <label class="sr-only"  >代理工号</label>
+                            <div class="col-xs-2">
+                                <input type="text" class="form-control  " name="seid"   placeholder="代理工号" value="{$where.seid}">
+                            </div>
+
+                            <label class="sr-only"  >该工号当月的全部直推订单</label>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control  " name="serverofseid"   placeholder="该工号当月的全部直推订单" value="{$where.serverofseid}">
+                            </div>
+
+
+                            <label class="sr-only"  >订单审核情况</label>
+                            <div class="col-xs-2">
+                                <select name="ispass" class="form-control"       >
+                                    <option value="2"   >请选择订单审核情况</option>
+                                    <option value="0" <if condition="$where['ispass'] === '0' " >selected="selected"</if>  >未审核</option>
+                                    <option value="1" <if condition="$where['ispass'] eq 1 " >selected="selected"</if> >已审核</option>
+                                    <option value="2"<if condition="$where['ispass'] === ''  " >selected="selected"</if> >全部</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-default col-xs-2">搜索</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+
+
+        <div class="prolist">
+            <form id="olform">
+                <table class="table table-bordered table-hover ">
+                    <tr id="pthead">
+                        <td style="width: 3%">
+                            选择
+                            <input type="checkbox" id="qx" onClick="if(this.checked==true) { checkAll('oids[]'); } else { clearAll('oids[]'); }"  />
+                        </td>
+                        <td style="width: 7%">订单号</td>
+                        <td style="width: 7%">产品名称</td>
+                        <td style="width: 7%">代理工号</td>
+                        <td style="width: 7%">总价格</td>
+                        <td style="width: 7%">pv值</td>
+                        <td style="width: 7%">下单时间</td>
+                        <td style="width: 8%">操作</td>
+
+
+                    </tr>
+
+                    <volist name="orderlist" id="od">
+
+                        <tr >
+                            <td><input type="checkbox" name="oids[]" value="{$od.orderid}" <if condition="$od.ispass eq 1">disabled="disabled"</if> ></td>
+                            <td>{$od.orderid|getorder_sn} </td>
+
+                            <td>{$od.pname}</td>
+                            <td>{$od.seid}</td>
+                            <td>{$od.finalprice}</td>
+                            <td>{$od.finalpprice}</td>
+
+                            <td class="hidden-xs">{$od.otime|date="Y-m-d H:i:s",###}</td>
+                            <td class="visible-xs-block">{$od.otime|date="m-d H:i",###}</td>
+
+
+                            <td>
+                                <if condition="session('toexaminepass')">
+                                <if condition="$od.ispass eq 1">
+                                    <a href="#" oid="{$od.orderid}" class="orderpass label label-success" pass="1" >已审核</a>
+                                    <else/>
+                                    <a href="#" oid="{$od.orderid}" class="orderpass label label-warning" pass="0" >未审核</a>
+                                </if>
+                                </if>
+
+                                <if condition="$od.ispass eq 1">
+                                    <span>
+                                        <a href="{:U('Order/orderedit',array('oid' => $od['orderid'])  )}" oid="{$od.orderid}" class="label label-info"   >编辑</a>
+                                        <span oid="{$od.orderid}" class=" label label-default   ">删除</span>
+                                    </span>
+
+                                    <else/>
+                                      <span>
+                                        <a href="{:U('Order/orderedit',array('oid' => $od['orderid'])  )}" oid="{$od.orderid}" class="label label-info"   >编辑</a>
+                                        <a href="#" oid="{$od.orderid}" class="orderdel label label-danger">删除</a>
+                                      </span>
+                                </if>
+                            </td>
+
+
+                        </tr>
+
+                    </volist>
+
+
+
+
+                </table>
+                <button class="btn btn-primary" type="button" id="olbtn">批量删除</button>
+                <a href="{:U('Order/orderadd')}" class="btn btn-primary"  >添加订单</a>
+            </form>
+        </div>
+
+        {/*分页数据*/}
+        <div class="wypage">
+
+            <nav>
+                <ul class="pagination">
+                    <li><a href="{:U('Order/orderlist',array('nowpage'=> 1 ) )}">  首页 </a></li>
+                    <if condition="$nowpage neq 1">
+                        <li  ><a href="{:U('Order/orderlist',array('nowpage'=> $nowpage-1 ) )}" title="上一页" >&laquo;</a></li>
+                        <else/>
+                        <li class="disabled"><a href="{:U('Order/orderlist',array('nowpage'=> $nowpage-1 ) )}">&laquo;</a></li>
+                    </if>
+                    <!--<li class="active"> <span >1</span></li>-->
+
+                    <for start="advoidnegative($nowpage-3) " end="advoidTranscend($nowpage+3,$pagecount+1)">
+                        <if condition="$i eq $nowpage">
+                            <li class="active"> <span >{$i}</span></li>
+                            <else/>
+                            <li><a href="{:U('Order/orderlist',array('nowpage'=> $i ) )}">{$i}</a></li>
+                        </if>
+                    </for>
+
+                    <if condition="$nowpage neq $pagecount">
+                        <li><a href="{:U('Order/orderlist',array('nowpage'=> $nowpage+1 ) )}" title="下一页" >&raquo;</a></li>
+                        <else/>
+                        <li class="disabled"><a href="{:U('Order/orderlist',array('nowpage'=> $nowpage+1 ) )}">&raquo;</a></li>
+                    </if>
+                    <li><a href="{:U('Order/orderlist',array('nowpage'=> $pagecount ) )}">  末页 </a></li>
+
+                    <li><span > 共{$allnum}条数据，共{$pagecount}页 ,现在第 {$nowpage}页</span></li>
+                </ul>
+
+            </nav>
+
+        </div>
+    </div>
+    <script>
+        /*
+         * 全选函数
+         * */
+        function checkAll(name) {
+            var el = document.getElementsByTagName('input');
+            var len = el.length;
+            for(var i=0; i<len; i++){
+                if((el[i].type=="checkbox") && (el[i].name==name)){
+                    el[i].checked = true;
+                }
+            }
+        }
+
+        /*
+         * 全不选函数
+         * */
+        function clearAll(name) {
+            var el = document.getElementsByTagName('input');
+            var len = el.length;
+            for(var i=0; i<len; i++){
+                if((el[i].type=="checkbox") && (el[i].name==name)){
+                    el[i].checked = false;
+                }
+            }
+
+        }
+
+    </script>
+    <script>
+        $(function () {
+
+            /*删除一个*/
+            $('.orderdel').click(function (e) {
+                var self =$(this);
+                e.preventDefault();
+                if(confirm('你真的要删除这个订单吗？')){
+                    $.ajax({
+                        url:"{:U('Order/orderdel')}",
+                        type:"POST",
+                        data:"orderid="+self.attr('oid'),
+                        success:function (data) {
+                            console.log(data);
+                            if(parseInt(data) == 1){
+                                layer.msg("删除成功");
+                                location.reload();
+                            }else {
+                                layer.msg("删除失败");
+                            }
+                        }
+
+                    })
+                }
+
+            });
+
+            /*批量删除多个*/
+
+            $('#olbtn').click(function (e) {
+                e.preventDefault();
+                if(confirm("你真的要删除这些订单吗？")){
+                    $.ajax({
+                        url:"{:U('Order/ordermanydel')}",
+                        type:"POST",
+                        data:$('#olform').serialize(),
+                        success:function (data) {
+                            console.log(data);
+                            if(parseInt(data) == 1){
+                                layer.msg("批量删除成功");
+                                location.reload();
+                            }else {
+                                layer.msg("删除失败");
+                            }
+                        }
+
+                    })
+                }
+            })
+
+
+            $('.orderpass').click(function (e) {
+                e.preventDefault();
+                var that = $(this);
+                var oid = $(this).attr('oid');
+                var pass = $(this).attr('pass');
+                if (pass === '1'){
+                    if(confirm("你确定要取消这订单的审核吗？")){
+                        $.ajax({
+                            url:"{:U('Order/ordertogglepass')}",
+                            type:"POST",
+                            data:{
+                                "oid" :   oid,
+                                "pass" :  pass
+                            },
+                            success:function (data) {
+                                console.log(data);
+                                if (data == "0" ){
+                                    var orderid = that.attr('oid');
+                                    layer.msg("修改成功");
+                                    that.attr('pass',0).removeClass('label-success')
+                                            .addClass('label-warning')
+                                            .text('未审核');
+                                    that.siblings('span')
+                                            .html(' <a href="/wywlsale/index.php/Order/orderedit/oid/'+orderid+'" oid="'+orderid+'" class="label label-info"   >编辑</a>'+
+                                    '<a href="#" oid="'+orderid+'" class="orderdel label label-danger">删除</a> ');
+                                    that.parents('tr').children('td:first').find('input').removeAttr('disabled');
+
+
+                                }else {
+                                    layer.msg(data);
+                                }
+                            }
+
+                        })
+                    }
+                }else {
+                    if(confirm("你确定要通过这订单的审核吗？")){
+                        $.ajax({
+                            url:"{:U('Order/ordertogglepass')}",
+                            type:"POST",
+                            data:{
+                                "oid" :   oid,
+                                "pass" :  pass
+                            },
+                            success:function (data) {
+                                console.log(data);
+                                if (data == "1" ){
+                                    var orderid = that.attr('oid');
+                                    layer.msg("修改成功");
+                                    that.attr('pass',1).removeClass('label-warning')
+                                            .addClass('label-success')
+                                            .text('已审核');
+                                    that.siblings('span')
+                                            .html(' <a href="/wywlsale/index.php/Order/orderedit/oid/'+orderid+'" oid="'+orderid+'" class="label label-info"   >编辑</a>'+
+                                                    '<span class=" label label-default   ">删除</span>');
+                                    that.parents('tr').children('td:first').find('input').attr('disabled','disabled');
+
+                                }else {
+                                    layer.msg(data);
+                                }
+                            }
+
+                        })
+                    }
+                }
+
+
+
+
+            });
+
+
+           $('.wypage').find('a').click(function (e) {
+               e.preventDefault();
+               var href = $(this).attr('href');
+               var formparam = $('#osform').serialize();
+               console.log(formparam);
+//               formparam = formparam.replace(/&/g,'/').replace(/=/g,'/');
+               href+='/search/1';
+//               console.log(formparam);
+               href+=('?'+formparam);
+               //alert(href);
+               goUrl(href);
+           })
+
+
+
+
+
+
+
+
+
+        })
+
+
+    </script>
+
+
+
+    </div>
+
+
+
+
+</div>
+<include file="Public/footer" />
+
+</body>
+
+</html>

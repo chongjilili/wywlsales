@@ -1,0 +1,279 @@
+<meta charset="UTF-8">
+
+
+<php>
+    $risingsetting = D('Risingsetting')->find();
+</php>
+
+<assign name="risingsetting" value="$risingsetting" />
+
+<div class="addtype">
+    股值：<span>{$risingsetting.shares}</span>&nbsp;|
+    公司交易量：累计<span class="nownum">{$risingsetting.nownum}</span>单
+
+    <h2>+1</h2>
+</div>
+<script type="application/javascript">
+
+
+    $(function () {
+        var speed = '{$risingsetting.risingtime}';
+        speed = parseInt(speed)*1000;
+        settime = setInterval(function () {
+            addyounum();
+        },speed);
+
+    });
+
+    /*右上角的动画函数*/
+    function addyounum() {
+
+        var addtype = $('.addtype');
+        //复位
+        addtype.find('h2').css({
+            'top':40,
+            'font-size' : '30px'
+        });
+        addtype.find('h2').animate({
+            'top':-40,
+            'font-size' : '0px'
+        },1500,function () {
+            //回调函数
+            var addtypespan = addtype.find('span.nownum');
+            var ordernum = parseInt(addtypespan.text());
+            addtypespan.text(++ordernum);//新的单数
+            $.ajax({
+                url:"{:U('Risingsetting/refresh')}",
+                type:"POST",
+                data:{
+                    id:'{$risingsetting.id}',
+                    nownum:ordernum
+                },
+                success:function (data) {
+                    console.log(data);
+
+                }
+              }
+            );
+
+        })
+    }
+
+</script>
+<div class="top">
+    <section></section>
+</div>
+<div id="header" class="container">
+    <div class="nowtime hidden-xs">登录时间：{$Think.session.wy_logintime}</div>
+    <div class="welcome" style="">
+            <span>欢迎<b>{$Think.session.wy_username}</b>
+             <if condition="session('usertype') eq 1">
+              普通代理
+            <elseif condition="session('usertype') eq 2"/>
+                 银牌代理
+            <elseif condition="session('usertype') eq 3"/>
+                金牌代理
+            <elseif condition="session('usertype') eq 9"/>
+                公司管理员
+                               <if condition="session('toexaminepass')">
+
+                                   <a href="{:U('Login/examinepassloginout')}" oid=""
+                                      target="_parent"
+                                       onclick="return confirm('你真的要退出审核员登录吗？')"
+                                      class="exampeople label label-success">退出审核</a>
+
+                                   <a href="#"  data-toggle="modal"
+                                      data-target=".bs-example-modal-sm2"
+                                      target="_parent"
+                                      class="exampeople label label-success">审核设置</a>
+
+                                    <else/>
+                                    <a href="#"    oid="" class="exampeople label label-warning" data-toggle="modal"
+                                       data-target=".bs-example-modal-sm"  >登录审核</a>
+
+
+
+                                   <!-- 登录审核员 -->
+                         </if>
+
+                   </if>
+                <a href="{:U('Login/logout')}" target="_parent" class="hidden-xs"
+                   onclick="return confirm('你真的要退出登录吗？')">
+                退出
+                  </a>
+            </span>
+
+    </div>
+</div>
+<nav class="navbar" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
+            <div class="logo-hidden"></div>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="__APP__"
+                    <if condition="$active eq 1"> class="active"</if>
+                    >首页</a></li>
+            <!--
+                <li><a href="{:U('Achievement/companyprofit',array('adminid'=> 1 ) )}"
+                    <if condition="$active eq 2"> class="active"</if>
+                    >业绩查看</a></li>
+                -->
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">业绩总况 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{:U('Achievement/companyprofit',array('adminid'=> 1 ) )}"
+                            <if condition="$active eq 2"> class="active"</if>
+                            >业绩查看</a>
+                        </li>
+                        <li><a href="{:U('Risingsetting/jqgrid')}">业绩报表</a></li>
+                        <li><a href="{:U('Withdrawalsmsg/wsdeelwith')}"  <if condition="$active eq 7"> class="active"</if> >提现申请</a></li>
+                        <li><a href="{:U('Risingsetting/index')}"  <if condition="$active eq 8"> class="active"</if> >右上单量</a></li>
+                        <li><a href="{:U('Email/index')}"  <if condition="$active eq 9"> class="active"</if> >邮箱设置</a></li>
+
+
+                    </ul>
+                </li>
+
+                <li><a href="{:U('Achievement/picture')}"
+                    <if condition="$active eq 3"> class="active"</if>
+                    >组织视图</a></li>
+                <li><a href="{:U('Order/index')}"
+                    <if condition="$active eq 4"> class="active"</if>
+                    >订单管理</a></li>
+                <li><a href="{:U('Admin/manage')}"
+                    <if condition="$active eq 5"> class="active"</if>
+                    >成员管理</a></li>
+                <li><a href="{:U('Promag/index')}"
+                    <if condition="$active eq 6"> class="active"</if>
+                    >产品管理</a></li>
+
+               <!-- <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>-->
+
+                <!--<li class="visible-xs"><a href="javascript:;" class="openOfManager" data-url="changePassword">修改密碼</a>
+                </li>-->
+                <li class="visible-xs"><a href="{:U('Login/logout')}" target="_parent"
+                                          onclick="return confirm('你真的要退出登录吗？')" class="logout">退出</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+<!--/*************************登录审核员*******************************/-->
+
+<!-- 登录审核员 -->
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">登录审核员</h4>
+
+            </div>
+
+            <div class="modal-body">
+                <form action="{:U('Login/examinepasslogin')}" method="post" id="examinform">
+                    <div class="form-group">
+                        <label for="toexaminepass" class="control-label">审核密码:</label>
+                        <input type="password" class="form-control" id="toexaminepass" name="toexaminepass">
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-primary" onclick="$('#examinform').submit();">提交</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--/********************************审核员设置***************************************/-->
+
+
+<div class="modal fade bs-example-modal-sm2" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"  >审核员设置</h4>
+
+            </div>
+
+            <div class="modal-body">
+                <form action="{:U('Admin/examinpasschg')}" method="post" id="examinsettingform">
+                    <div class="form-group">
+                        <label for="toexaminepass" class="control-label">审核原密码:</label>
+                        <input type="password" class="form-control"  id="toexaminepass2" name="toexaminepass" required="required">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="newtoexaminepass" class="control-label">审核新密码:</label>
+                        <input type="password" class="form-control" id="newtoexaminepass"  name="newtoexaminepass" required="required">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="qnewtoexaminepass" class="control-label">审核密码确认:</label>
+                        <input type="password" class="form-control" id="qnewtoexaminepass"  name="qnewtoexaminepass" required="required" >
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-primary" id="examsetting"  >提交</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+
+            </div>
+
+            <script type="application/javascript">
+                $('#examsetting').click(function (e) {
+                    e.preventDefault();
+                    var toexaminepass2 = $('#toexaminepass2').val();
+                    var newtoexaminepass = $('#newtoexaminepass').val();
+                    var qnewtoexaminepass = $('#qnewtoexaminepass').val();
+
+                    if (toexaminepass2 != '' && newtoexaminepass != '' && qnewtoexaminepass != ''){
+                        if($.trim(newtoexaminepass) !== $.trim(qnewtoexaminepass)){
+                            layer.msg("新旧审核密码不同");
+                        }else{
+                            $('#examinsettingform').submit();
+                        }
+                    }else{
+                        layer.msg("有选项没有填写");
+                    }
+                });
+            </script>
+        </div>
+    </div>
+</div>

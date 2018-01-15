@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://member.comeway.hk/Home/Index/recomm -->
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0;">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="mobileoptimized" content="0">
+
+    <title>{$title} 管理系统</title>
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <include file="Public/script"/>
+
+</head>
+<body>
+
+<include file="User/header"/>
+<style type="text/css">
+
+</style>
+<div class="container">
+
+
+    <div>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs tabli" role="tablist">
+
+
+            <li role="presentation" class="active "><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">修改</a>
+            </li>
+            <li role="presentation" ><a href="#home" aria-controls="home" role="tab" data-toggle="tab">我要推荐</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+            <div role="tabpanel" class="tab-pane active" id="profile">
+                <div style="margin-top: 20px;">
+                    <form method='post' class="form-horizontal" id="form_do" name="form_do"
+                          action="{:U('User/changePasswordAndMsg')}">
+
+                        <div class="form-group">
+                            <label for="inputUsername" class="col-sm-2 control-label"> 用户编号</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="username" id="inputUsername" value="{$username}"
+                                       class="form-control" placeholder="　用户编号" disabled="disabled"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputPassword" class="col-sm-2 control-label"> 新密码</label>
+                            <div class="col-sm-9">
+                                <input type="password" name="password" id="inputPassword" value="" class="form-control"
+                                       placeholder="不修改可以留空"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="qPassword" class="col-sm-2 control-label">确认密码</label>
+                            <div class="col-sm-9">
+                                <input type="password" name="qpassword" id="qPassword" value="" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="idcard" class="col-sm-2 control-label">身份证号</label>
+                            <div class="col-sm-9">
+                                <input type="text"  id="idcard" value="{$admin.idcard}"
+                                       class="form-control" placeholder="身份证号" disabled="disabled" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputRealname" class="col-sm-2 control-label">身份证姓名</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="realname" id="inputRealname" value="{$admin.realname}"
+                                       class="form-control" placeholder="真实姓名"   />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="creditcard" class="col-sm-2 control-label">银行卡号</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="creditcard" id="creditcard" value="{$admin.creditcard}"
+                                       class="form-control" placeholder="银行卡号"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="addressofcreditcard" class="col-sm-2 control-label">开卡户地</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="addressofcreditcard" id="addressofcreditcard" value="{$admin.addressofcreditcard}"
+                                       class="form-control" placeholder="开卡户地"/>
+                            </div>
+                        </div>
+
+
+                        <div class="row margin-botton-large">
+                            <div class="col-sm-offset-2 col-sm-9">
+                                <if condition="$adminid">
+                                    <input type="hidden" name="adminid" value="{$adminid}" id="adminid"/>
+                                </if>
+                                <div class="btn-group">
+                                    <button type="submit" class="btn btn-primary" id="admnsubmit"><i
+                                            class="glyphicon glyphicon-saved"></i>
+                                        保存
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane " id="home">
+                <div class="pd-20">
+                    <h1 class="title"> 我要推荐 </h1>
+
+                    <center>
+                        <img src="__PUBLIC__/images/erweima.png"><br>
+                        让你的朋友扫一扫<br>
+
+                    </center>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script type="application/javascript">
+
+
+        var checkFlag = 0;
+        $('#form_do').find('input').blur(function () {
+            var password = $('#inputPassword').val();
+            var qpassword = $('#qPassword').val();
+
+
+            checkFlag = checkEqulePassword(password, qpassword);
+//            console.log(checkFlag);
+
+
+        });
+
+        $("#admnsubmit").click(function (e) {
+            var password = $('#inputPassword').val();
+            var qpassword = $('#qPassword').val();
+//
+            checkFlag = checkEqulePassword(password, qpassword);
+            console.log(checkFlag);
+            if (checkFlag === 0) {
+                e.preventDefault();
+            }
+
+        });
+
+        function checkEqulePassword(password, qpassword) {
+            var checkFlag = 1;
+            if (qpassword !== password) {
+                if (typeof(adminid) == "undefined" || password !== '') {
+                    layer.tips('确认密码和密码不相同', '#qPassword', {
+                        tips: [3, '#3595CC'],
+                        time: 2000
+                    });
+                    checkFlag *= 0;
+                }
+            }
+            return checkFlag;
+        }
+
+    </script>
+
+
+</div>
+
+<div class="footer">
+
+    <div class="container">
+        <p class="hidden-xs">Compensation Plan Policies and Procedures Terms and Conditions</p>
+        <p> Copyright © 2015-2020 &nbsp;&nbsp; All rights reserved.</p>
+    </div>
+</div>
+
+
+</div></body>
+</html>
